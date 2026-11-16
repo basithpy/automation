@@ -17,26 +17,33 @@ pipeline {
 
         stage('Check Requirements') {
             steps {
+                echo 'Checking requirements.txt'
                 bat 'type requirements.txt'
             }
         }
 
         stage('Install Requirements') {
             steps {
-                bat 'py -m pip install -r requirements.txt'
+                bat '''
+                "C:\\Users\\ELCOT\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt
+                '''
             }
         }
 
         stage('Build') {
             steps {
-                bat 'py -m py_compile app.py'
+                bat '''
+                "C:\\Users\\ELCOT\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m py_compile app.py
+                '''
                 echo 'Build successful'
             }
         }
 
         stage('Run Application') {
             steps {
-                bat 'py app.py'
+                bat '''
+                "C:\\Users\\ELCOT\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" app.py
+                '''
             }
         }
     }
@@ -49,5 +56,10 @@ pipeline {
         failure {
             echo 'ERROR: Pipeline failed'
         }
+
+        always {
+            echo 'Pipeline execution finished'
+        }
     }
 }
+
